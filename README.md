@@ -21,8 +21,5 @@ Explore Courses: Browse through your university's course catalog and add courses
 Plan Your Schedule: Use the course planner to map out your schedule for upcoming semesters.
 Track Your Progress: Monitor your degree progress to ensure you're fulfilling all requirements.
 Stay Informed: Explore the resource library for helpful tips and information to support your academic journey.
-Feedback and Support:
-
-We value your feedback! If you have any suggestions for improving the website or encounter any issues, please don't hesitate to reach out to our support team at support@universitydegreeplanner.com. We're here to help you make the most of your university experience.
 
 Thank you for choosing planSFU. We wish you success in your academic pursuits!
