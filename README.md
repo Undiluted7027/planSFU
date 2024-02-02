@@ -2,6 +2,9 @@
 Shitass degree planner coz GoSFU sucks
 SFU Degree Planner Website
 
+
+https://docs.google.com/document/d/1SjBPz_mlxqEkqjXZn-04G2rybrTW4iyuNVFO2D9xHFA/edit
+
 Welcome to the planSFU! This platform is designed to assist students in efficiently planning their academic journey throughout their time at university. Whether you're a freshman mapping out your course schedule or a senior ensuring you're on track for graduation, this website aims to streamline the process and provide valuable resources.
 
 Features:
