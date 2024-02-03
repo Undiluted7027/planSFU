@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h2>Lower Division Courses</h2>
+        <p>Tell me about your lower division courses:</p>
+
+        <form method="POST" action="{{ url_for('survey') }}">
+            {% for i in range(3) %}
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <label for="status{{ i + 1 }}">Status:</label>
+                        <select name="status{{ i + 1 }}" class="form-control status-dropdown" required>
+                            <option value="Lcurrent">Currently Enrolled</option>
+                            <option value="Lpast">Completed in the Past</option>
+                            <option value="Lfuture">Plan to Take in the Future</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="cname{{ i + 1 }}">Course Name:</label>
+                        <input type="text" name="cname{{ i + 1 }}" class="form-control cname-input">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="secname{{ i + 1 }}">Section Name:</label>
+                        <input type="text" name="secname{{ i + 1 }}" class="form-control secname-input">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="grade{{ i + 1 }}">Grade (if past):</label>
+                        <input type="text" name="grade{{ i + 1 }}" class="form-control grade-input" disabled>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <!-- Include the jQuery script at the end of the body -->
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    // Attach an event listener to the 'status' dropdowns
+                    $('.status-dropdown').change(function () {
+                        // Get the selected value
+                        var selectedStatus = $(this).val();
+
+                        // Find the corresponding grade input within the same container
+                        var gradeInput = $(this).closest('.row').find('.grade-input');
+
+                        // Enable or disable the grade input based on the selected status
+                        if (selectedStatus === "Lpast") {
+                            gradeInput.prop('disabled', false);
+                        } else {
+                            gradeInput.prop('disabled', true);
+                        }
+                    });
+                });
+            </script>
+
+            <!-- Add a submit button -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
