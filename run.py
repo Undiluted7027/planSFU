@@ -17,19 +17,15 @@ app.app_context().push()
 
 
 class progress(db.Model):
-    course_id = db.Column("Course ID", db.String(10), primary_key = True)
-    pre_requisite = db.Column("Pre Requisite", db.Boolean)
+    course = db.Column("Course ID", db.String(10), primary_key = True)
     section = db.Column("Section", db.String(5))
     grade = db.Column("Grade", db.String(2))
 
-    def __init__(self, course_id, pre_requisite, section, grade) :
+    def __init__(self, course_id, section, grade) :
         self.course_id = course_id
-        self.pre_requisite = pre_requisite
         self.section = section
         self.grade = grade
 
-
- 
 # The route() function of the Flask class is a decorator, 
 # which tells the application which URL should call 
 # the associated function.
@@ -39,9 +35,13 @@ def hello_world():
     '''Test fn for first time use'''
     return 'Hello World'
 
-@app.route('/')
-def index():
-    return render_template('base.html')
+@app.route("/", methods = ["POST", "GET"])
+def home():
+    if request.method == "POST" :
+        user = request.form["nm"]
+        return redirect(url_for("survey"))
+    else :
+        return render_template("home.html")
  
 @app.route('/survey/', methods=('GET', 'POST')) 
 def survey():
@@ -50,15 +50,20 @@ def survey():
         lower_div_courses = []
         for i in range(3):
             course = request.form.get('course{}'.format(i + 1))
-            status = request.form.get('status{}'.format(i + 1))
+            section = request.form.get('section{}'.format(i + 1))
             grade = request.form.get('grade{}'.format(i + 1)) if i > 0 else None
             lower_div_courses.append({
                 'course': course,
-                'status': status,
+                'section': section,
                 'grade': grade
             })
 
         print("Lower Division Courses:", lower_div_courses)
+        for i in lower_div_courses:
+            print(i['course'])
+            student_progress = progress(i.get('course'), i.get('section'), i.get('grade'))
+            db.session.add(student_progress)
+            db.session.commit()
         return redirect(url_for('thank_you'))
 
     # Add a return statement for the 'GET' method
@@ -67,19 +72,6 @@ def survey():
 @app.route('/thank_you')
 def thank_you():
     return "Thank you for submitting the survey!"
-=======
-@app.route("/", methods = ["POST", "GET"])
-def home():
-    if request.method == "POST" :
-        user = request.form["nm"]
-        return redirect(url_for("survey"))
-    else :
-        return render_template("home.html")
-
-@app.route("/survey")
-def survey():
-    return f"Survey here"
-
 
 # main driver function
 if __name__ == '__main__':
